@@ -1,12 +1,13 @@
 import { prisma } from '../../lib/prisma';
+import { Chat } from '@prisma/client';
 
-export function findMessagesByChatId(chatId: string) {
+export function findMessagesByChatId(chatId: Chat['id']) {
   return prisma.message.findMany({
     where: {
       chatId: chatId,
     },
     orderBy: {
-      createdAt: 'desc',
+      id: 'desc',
     },
   });
 }

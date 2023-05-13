@@ -2,33 +2,42 @@ import { prisma } from '../../lib/prisma';
 import { ChatCompletionRequestMessageRoleEnum } from 'openai';
 import { Chat } from '@prisma/client';
 
-export async function addMessageToChat(
+/**
+ * Add messages to a chat and return all messages including the new ones
+ * @param chat
+ * @param messages
+ */
+export async function addMessagesToChat(
   chat: Chat,
-  messageContent: string,
-  role: ChatCompletionRequestMessageRoleEnum,
+  messages: {
+    messageContent: string;
+    role: ChatCompletionRequestMessageRoleEnum;
+  }[],
 ) {
-  return prisma.chat.update({
-    where: {
-      id: chat.id,
-    },
-    include: {
-      messages: true,
-    },
-    data: {
-      updatedAt: new Date(),
-      messages: {
-        create: [
-          {
-            content: messageContent,
-            role,
-            account: {
-              connect: {
-                id: chat.accountId,
-              },
-            },
-          },
-        ],
+  return prisma.$transaction(async (prisma) => {
+    await prisma.message.createMany({
+      data: messages.map(({ messageContent, role }) => ({
+        content: messageContent,
+        role,
+        accountId: chat.accountId,
+        chatId: chat.id,
+      })),
+    });
+    await prisma.chat.update({
+      where: {
+        id: chat.id,
       },
-    },
+      data: {
+        updatedAt: new Date(),
+      },
+    });
+    return prisma.message.findMany({
+      where: {
+        chatId: chat.id,
+      },
+      orderBy: {
+        id: 'asc',
+      },
+    });
   });
 }

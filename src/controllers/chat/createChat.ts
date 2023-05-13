@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { createNewChat } from '../../services/chat/createNewChat';
 import { z } from 'zod';
 
@@ -6,10 +6,15 @@ const requestSchema = z.object({
   title: z.string().optional(),
 });
 
-export async function createChat(req: Request, res: Response) {
+export async function createChat(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const request = requestSchema.safeParse(req.body);
   if (!request.success) {
-    return res.status(400).json({ message: 'Invalid request body' });
+    res.status(400);
+    return next(new Error('Invalid request body'));
   }
 
   const chat = await createNewChat(req.user!.id, request.data.title);

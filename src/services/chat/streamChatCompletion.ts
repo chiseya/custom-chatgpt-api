@@ -1,15 +1,21 @@
-import { ChatCompletionRequestMessage } from 'openai';
+import { ChatCompletionRequestMessageRoleEnum } from 'openai';
 import axios from 'axios';
 import { openai } from '../../lib/openai';
+import { Message } from '@prisma/client';
 
-export async function* streamChatCompletion(
-  messages: ChatCompletionRequestMessage[],
-) {
+export async function* streamChatCompletion(messages: Message[]) {
+  const openaiMessages = messages.map((message) => ({
+    role: message.role as ChatCompletionRequestMessageRoleEnum,
+    content: message.content,
+  }));
+
+  console.log(openaiMessages);
+
   try {
     const completion = await openai.createChatCompletion(
       {
         model: 'gpt-4',
-        messages,
+        messages: openaiMessages,
         stream: true,
       },
       {

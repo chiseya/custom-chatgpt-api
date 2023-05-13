@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 export interface ErrorResponse {
+  status: number;
   message: string;
 }
 
@@ -19,6 +20,7 @@ export function errorHandler(
   const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
   res.status(statusCode);
   res.json({
+    status: statusCode,
     message: err.message,
   });
 }

@@ -30,7 +30,8 @@ model Chat {
 }
 
 model Message {
-  id        String   @id @default(cuid())
+  id        BigInt   @id @default(autoincrement())
+  uid       String   @unique @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   content   String

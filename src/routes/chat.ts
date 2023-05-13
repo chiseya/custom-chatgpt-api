@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', getChats);
 router.post('/', createChat);
 router.delete('/:chatId', deleteChat);
-router.post('/generate-chat-completion', generateChatCompletion);
+router.post('/:chatId/completion', generateChatCompletion);
 router.get('/:chatId/messages', getMessages);
 
 export default router;

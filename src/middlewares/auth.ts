@@ -22,7 +22,7 @@ export async function requiresAuth(
     const payload = ticket.getPayload();
 
     if (!payload?.email || !payload?.email_verified) {
-      res.status(401);
+      res.status(403);
       return next(new Error('You need to verify your email address'));
     }
 
@@ -30,18 +30,17 @@ export async function requiresAuth(
       process.env.GSUITE_DOMAIN &&
       payload?.hd !== process.env.GSUITE_DOMAIN
     ) {
-      res.status(401);
+      res.status(403);
       return next(
         new Error('Your google account is not authorized to use this app'),
       );
     }
 
-    const account = await findOrCreateAccount({
+    req.user = await findOrCreateAccount({
       email: payload.email,
       name: payload.name ?? payload.email.split('@')[0],
       picture: payload.picture ?? null,
     });
-    req.user = account;
 
     next();
   } catch {
