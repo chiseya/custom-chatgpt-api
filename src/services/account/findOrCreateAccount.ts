@@ -1,4 +1,4 @@
-import { prisma } from '../../lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 export type CreateOrUpdateAccountPayload = {
   email: string;
@@ -6,6 +6,11 @@ export type CreateOrUpdateAccountPayload = {
   picture: string | null;
 };
 
+/**
+ * Finds an existing account with the given email, or creates a new one if it doesn't exist.
+ * @param payload - The payload containing the email, name, and picture URL for the account.
+ * @returns The account that was found or created.
+ */
 export async function findOrCreateAccount(
   payload: CreateOrUpdateAccountPayload,
 ) {

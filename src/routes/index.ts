@@ -1,10 +1,10 @@
 import express from 'express';
-import chat from './chat';
-import { requiresAuth } from '../middlewares';
-import { ok } from '../controllers/misc/ok';
+import { requiresAuth } from '@/middlewares';
+import chat from '@/routes/chat';
+import verify from '@/routes/verify';
 
 const router = express.Router();
 router.use('/chat', requiresAuth, chat);
-router.get('/verify', requiresAuth, ok);
+router.use('/verify', requiresAuth, verify);
 
 export default router;

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { OAuth2Client } from 'google-auth-library';
-import { findOrCreateAccount } from '../services/account/findOrCreateAccount';
+import { findOrCreateAccount } from '@/services/account/findOrCreateAccount';
 
 export async function requiresAuth(
   req: Request,

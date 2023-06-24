@@ -1,15 +1,15 @@
 import express from 'express';
-import { generateChatCompletion } from '../controllers/chat/generateChatCompletion';
-import { getMessages } from '../controllers/chat/getMessages';
-import { getChats } from '../controllers/chat/getChats';
-import { createChat } from '../controllers/chat/createChat';
-import { deleteChat } from '../controllers/chat/deleteChat';
+import { handlePostChatCompletion } from '@/controllers/chat/handlePostChatCompletion';
+import { handleGetMessages } from '@/controllers/chat/handleGetMessages';
+import { handleGetChats } from '@/controllers/chat/handleGetChats';
+import { handlePostChats } from '@/controllers/chat/handlePostChats';
+import { handleDeleteChat } from '@/controllers/chat/handleDeleteChat';
 
 const router = express.Router();
-router.get('/', getChats);
-router.post('/', createChat);
-router.delete('/:chatId', deleteChat);
-router.post('/:chatId/completion', generateChatCompletion);
-router.get('/:chatId/messages', getMessages);
+router.get('/', handleGetChats);
+router.post('/', handlePostChats);
+router.delete('/:chatId', handleDeleteChat);
+router.post('/:chatId/completion', handlePostChatCompletion);
+router.get('/:chatId/messages', handleGetMessages);
 
 export default router;

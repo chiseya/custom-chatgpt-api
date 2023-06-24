@@ -1,12 +1,21 @@
 import { NextFunction, Request, Response } from 'express';
-import { createNewChat } from '../../services/chat/createNewChat';
 import { z } from 'zod';
+import { createChat } from '@/services/chat/createChat';
 
 const requestSchema = z.object({
   title: z.string().optional(),
 });
 
-export async function createChat(
+/**
+ * @api {post} /chats Create a new chat.
+ * @apiName PostChats
+ * @apiGroup Chat
+ *
+ * @apiParam {String} [title] Chat's title.
+ *
+ * @apiSuccess (200) {Number} chatId Chat's unique ID.
+ */
+export async function handlePostChats(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -17,8 +26,8 @@ export async function createChat(
     return next(new Error('Invalid request body'));
   }
 
-  const chat = await createNewChat(req.user!.id, request.data.title);
-  return res.json({
+  const chat = await createChat(req.user!.id, request.data.title);
+  res.json({
     chatId: chat.id,
   });
 }
