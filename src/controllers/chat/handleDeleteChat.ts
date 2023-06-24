@@ -7,7 +7,7 @@ import { deleteChatById } from '@/services/chat/deleteChat';
  * @apiName DeleteChat
  * @apiGroup Chat
  *
- * @apiParam {Number} chatId Chat's unique ID.
+ * @apiParam {String} chatId Chat's unique ID.
  *
  * @apiSuccess (204) {null} null No content.
  */

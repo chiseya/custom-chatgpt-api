@@ -13,7 +13,7 @@ const requestSchema = z.object({
  *
  * @apiParam {String} [title] Chat's title.
  *
- * @apiSuccess (200) {Number} chatId Chat's unique ID.
+ * @apiSuccess (200) {String} chatId Chat's unique ID.
  */
 export async function handlePostChats(
   req: Request,

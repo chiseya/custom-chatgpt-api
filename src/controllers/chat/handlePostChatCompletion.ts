@@ -15,7 +15,7 @@ const requestSchema = z.object({
  * @apiName PostChatCompletion
  * @apiGroup Chat
  *
- * @apiParam {Number} chatId Chat's unique ID.
+ * @apiParam {String} chatId Chat's unique ID.
  * @apiParam {String} messageContent User's message content.
  * @apiParam {String} [systemPrompt] System's prompt.
  */

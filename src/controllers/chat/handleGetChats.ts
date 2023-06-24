@@ -7,7 +7,7 @@ import { findChatsByAccountId } from '@/services/chat/findChatsByAccountId';
  * @apiGroup Chat
  *
  * @apiSuccess (200) {Object[]} chats List of chats.
- * @apiSuccess (200) {Number} chats.id Chat's unique ID.
+ * @apiSuccess (200) {String} chats.id Chat's unique ID.
  * @apiSuccess (200) {String} chats.title Chat's title.
  * @apiSuccess (200) {String} chats.createdAt Chat's creation date.
  * @apiSuccess (200) {String} chats.updatedAt Chat's last update date.
