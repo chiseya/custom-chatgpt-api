@@ -13,7 +13,7 @@ An API wrapper for OpenAI's Chat completion with some features:
 - Node.js (version 18 or higher)
 - A relational database (PostgreSQL is recommended)
 - An OpenAI API KEY with access to GPT-4
-- Google OAuth Client ID and Client Ssecret
+- Google OAuth Client ID and Client Secret
 
 ### Installation
 
