@@ -13,7 +13,7 @@ An API wrapper for OpenAI's Chat completion with some features:
 ### Installation
 
 ```shell
-git clone https://github.com/chiseya/custom-chatgpt-api
+git clone https://github.com/chiseya/custom-chatgpt-api.git
 cd custom-chatgpt-api
 npm install
 ```
