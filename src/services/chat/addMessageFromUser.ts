@@ -27,16 +27,18 @@ export async function addMessageFromUser(
       },
     ];
 
-    const messageCount = await prisma.message.count({
-      where: {
-        chatId: chat.id,
-      },
-    });
-    if (systemPrompt && messageCount === 0) {
-      data.unshift({
-        messageContent: systemPrompt,
-        role: ChatCompletionRequestMessageRoleEnum.System,
+    if (systemPrompt) {
+      const messageCount = await prisma.message.count({
+        where: {
+          chatId: chat.id,
+        },
       });
+      if (messageCount === 0) {
+        data.unshift({
+          messageContent: systemPrompt,
+          role: ChatCompletionRequestMessageRoleEnum.System,
+        });
+      }
     }
 
     await prisma.message.createMany({
