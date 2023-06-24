@@ -11,3 +11,6 @@ dist
 
 # environment
 .env
+
+# cache
+.eslintcache

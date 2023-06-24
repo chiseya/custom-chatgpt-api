@@ -1,5 +1,7 @@
 # Custom-ChatGPT-API
+
 An API wrapper for OpenAI's Chat completion with some features:
+
 - System prompts
 - Chat history
 - Authentication (Currently only supports Google OAuth2)
@@ -7,8 +9,11 @@ An API wrapper for OpenAI's Chat completion with some features:
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (version 18 or higher)
 - A relational database (PostgreSQL is recommended)
+- An OpenAI API KEY with access to GPT-4
+- Google OAuth Client ID and Client Ssecret
 
 ### Installation
 
@@ -18,14 +23,26 @@ cd custom-chatgpt-api
 npm install
 ```
 
-After this, generate the Prisma client:
+Next, copy the .env.example file and rename it to .env:
+
 ```shell
-npx prisma generate
+cp .env.example .env
 ```
 
-Please ensure you have a .env file in your root directory with your database credentials, as Prisma will use it to connect to your database. The .env file should be something like this:
-```
+Open the .env file and replace the placeholder values with your actual credentials. This includes your database credentials, OpenAI API KEY, Google OAuth2 Client ID and Secret, and any other necessary variables. Your .env file should look similar to this:
+
+```dotenv
 DATABASE_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
+OPENAI_API_KEY="your-api-key"
+OPENAI_ORG_ID="your-organization-id"
+GOOGLE_CLIENT_ID="your-client-id"
+GOOGLE_CLIENT_SECRET="your-client-secret"
+```
+
+Now, generate the Prisma client:
+
+```shell
+npx prisma generate
 ```
 
 ### Usage
